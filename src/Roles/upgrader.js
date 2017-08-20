@@ -38,7 +38,7 @@ const roleUpgrader = {
 };
 
 /**
- * Sets the closest energy bearing structure, with as much or more energy than the creep can carry, to the creep to
+ * Sets the nearest energy bearing structure with as much or more energy than the creep can carry to
  * the creep's memory.matSourceId field, prioritizing storages and containers over extensions and spawns
  * @param {Creep} creep
  */

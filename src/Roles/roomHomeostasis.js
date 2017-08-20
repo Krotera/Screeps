@@ -23,7 +23,7 @@ const roomHomeostasis = {
                 let source = roomSources[i];
 
                 if (Memory.sourceIDs[room.name][source.id] === undefined) {
-                    // Check this source for a keeper lair within 5 tiles
+                    // Check this source for a keeper lair within 5 tiles (NOTE: this is only useful in sim)
                     let sourceArea = source.pos.findInRange(FIND_HOSTILE_STRUCTURES, 5);
 
                     // If there are hostile structures,
@@ -53,7 +53,6 @@ const roomHomeostasis = {
         /*************************************************************************/
         /* Maintain population                                                   */
         /*************************************************************************/
-        // TODO: Fix bug -- miner number not being enforced!
         for (let i = 0; i < spawns.length; i++) {
             let spawn = spawns[i];
 
@@ -99,29 +98,28 @@ const roomHomeostasis = {
                     }
                 }
             }
-            /* Debug printout per tick of the room's creep roster
-            if (Memory.roster) {
-                console.log("Roster:\n");
-                if (Memory.roster[room.name + "_forager"] !== undefined) {
-                    console.log(room.name + "_forager: " + Memory.roster[room.name + "_forager"].length);
-                }
-                if (Memory.roster[room.name + "_hauler"] !== undefined) {
-                    console.log(room.name + "_hauler: " + Memory.roster[room.name + "_hauler"].length);
-                }
-                if (Memory.roster[room.name + "_upgrader"] !== undefined) {
-                    console.log(room.name + "_upgrader: " + Memory.roster[room.name + "_upgrader"].length);
-                }
-                if (Memory.roster[room.name + "_ctor"] !== undefined) {
-                    console.log(room.name + "_ctor: " + Memory.roster[room.name + "_ctor"].length);
-                }
-                if (Memory.roster[room.name + "_miner"] !== undefined) {
-                    console.log(room.name + "_miner: " + Memory.roster[room.name + "_miner"].length);
-                }
-            }
-            */
         }
 
-        // TODO: Set up RCL progression in here with switch, using the building caps constant and Room.createConstructionSite()
+        /* Debug printout per tick of the room's creep roster
+        if (Memory.roster) {
+            console.log("Roster:\n");
+            if (Memory.roster[room.name + "_forager"] !== undefined) {
+                console.log(room.name + "_forager: " + Memory.roster[room.name + "_forager"].length);
+            }
+            if (Memory.roster[room.name + "_hauler"] !== undefined) {
+                console.log(room.name + "_hauler: " + Memory.roster[room.name + "_hauler"].length);
+            }
+            if (Memory.roster[room.name + "_upgrader"] !== undefined) {
+                console.log(room.name + "_upgrader: " + Memory.roster[room.name + "_upgrader"].length);
+            }
+            if (Memory.roster[room.name + "_ctor"] !== undefined) {
+                console.log(room.name + "_ctor: " + Memory.roster[room.name + "_ctor"].length);
+            }
+            if (Memory.roster[room.name + "_miner"] !== undefined) {
+                console.log(room.name + "_miner: " + Memory.roster[room.name + "_miner"].length);
+            }
+        }
+        */
 
         /*************************************************************************/
         /* Auto-place Tavern flag                                                */
@@ -129,6 +127,30 @@ const roomHomeostasis = {
         if (!Game.flags[flagName]) {
             placeTavern(spawns[0], flagName);
         }
+
+        // TODO: Set up RCL progression in here with switch, using the building caps constant and Room.createConstructionSite()
+
+        /*
+        Capacity for various structures at various RCLs (this is an API constant only here for reference)
+        CONTROLLER_STRUCTURES: {
+                "spawn": {0: 0, 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1, 7: 2, 8: 3},
+                "extension": {0: 0, 1: 0, 2: 5, 3: 10, 4: 20, 5: 30, 6: 40, 7: 50, 8: 60},
+                "link": {1: 0, 2: 0, 3: 0, 4: 0, 5: 2, 6: 3, 7: 4, 8: 6},
+                "road": {0: 2500, 1: 2500, 2: 2500, 3: 2500, 4: 2500, 5: 2500, 6: 2500, 7: 2500, 8: 2500},
+                "constructedWall": {1: 0, 2: 2500, 3: 2500, 4: 2500, 5: 2500, 6: 2500, 7: 2500, 8: 2500},
+                "rampart": {1: 0, 2: 2500, 3: 2500, 4: 2500, 5: 2500, 6: 2500, 7: 2500, 8: 2500},
+                "storage": {1: 0, 2: 0, 3: 0, 4: 1, 5: 1, 6: 1, 7: 1, 8: 1},
+                "tower": {1: 0, 2: 0, 3: 1, 4: 1, 5: 2, 6: 2, 7: 3, 8: 6},
+                "observer": {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 1},
+                "powerSpawn": {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 1},
+                "extractor": {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 1, 7: 1, 8: 1},
+                "terminal": {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 1, 7: 1, 8: 1},
+                "lab": {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 3, 7: 6, 8: 10},
+                "container": {0: 5, 1: 5, 2: 5, 3: 5, 4: 5, 5: 5, 6: 5, 7: 5, 8: 5},
+                "nuker": {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 1}
+            }
+        }
+        */
     }
 };
 

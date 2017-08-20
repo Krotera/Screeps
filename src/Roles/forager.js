@@ -58,7 +58,7 @@ const roleForager = {
 };
 
 /**
- * Assigns the ID of the closest source to the creep to the creep's memory.sourceId field
+ * Assigns the ID of the nearest source to the creep's memory.sourceId field
  * @param {Creep} creep
  */
 function getClosestSource(creep) {
@@ -70,7 +70,7 @@ function getClosestSource(creep) {
 }
 
 /**
- * Assigns the ID of the closest structure that isn't at energy capacity to the creep to the creep's memory.dropoffId
+ * Assigns the ID of the nearest structure that isn't at energy capacity to the creep's memory.dropoffId
  * field
  * @param {Creep} creep
  */

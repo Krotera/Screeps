@@ -39,8 +39,7 @@ module.exports = function(grunt) {
 		
 		// Flatten and copy all src files into the dist folder
 		copy: {
-		  // Pushes code to the dist folder as a buffer before
-		  // being sent to Screeps
+		  // Copies code to the dist folder as a buffer before being sent to Screeps
 		  screeps: {
 			files: [
 				{

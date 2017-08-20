@@ -79,7 +79,7 @@ function getNearestDroppedEnergy(creep) {
 }
 
 /**
- * Sets the closest energy bearing structure, with as much or more energy than the creep can carry, to the creep to
+ * Sets the nearest energy bearing structure with as much or more energy than the creep can carry to
  * the creep's memory.dropoffId field, prioritizing extensions and spawns over containers and storages
  * @param {Creep} creep
  */
