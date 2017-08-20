@@ -2,8 +2,8 @@
 This codebase attempts a fully autonomous Screeps AI (ideally functioning with zero console commands or user actions).
 
 With [Node.js](https://nodejs.org/en/download/), run `npm install` after cloning to import node modules. One of these is
- [Grunt](https://gruntjs.com/), which allows you to use `grunt deploy` to automatically clean the `dist` directory, 
- flatten and copy all code from `src` to it, and push all code from it to Screeps!
+ [Grunt](https://gruntjs.com/), which lets you use `grunt deploy` to automatically clean the `dist` directory, 
+ flatten and copy all code from `src` to it, and push all its code to Screeps  in one command (thanks, [Lexx](https://github.com/Lexxicon))!
 
 ### Roles
 - &#x1F6E0; **Ctor** - Builder
