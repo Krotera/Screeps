@@ -6,12 +6,12 @@ With [Node.js](https://nodejs.org/en/download/), run `npm install` after cloning
  flatten and copy all code from `src` to it, and push all code from it to Screeps!
 
 ### Roles
-- **Ctor** &#x1F6E0; - Builder
-- **Forager** &#x1F356; - Starter unit
-- **Hauler** &#x1F69B; - Carries stuff around
-- **Miner** &#x026CF; - [Static harvester](https://wiki.screepspl.us/index.php/Static_Harvesting); sits at a source and mines
-- **Room Homeostasis** &#x1F3E0; - Room-based maintenance of creep population, flags, etc.
-- **Upgrader** &#x1F53A; - 
+- &#x1F6E0; **Ctor** - Builder
+- &#x1F356; **Forager** - Starter unit
+- &#x1F69B; **Hauler** - Carries stuff around
+- &#x026CF; **Miner** - [Static harvester](https://wiki.screepspl.us/index.php/Static_Harvesting); sits at a source and mines
+- &#x1F3E0; **Room Homeostasis** - Room-based maintenance of creep population, flags, etc.
+- &#x1F53A; **Upgrader** - Upgrades controller
 
 ### Helper Functions
 - **isClearLine** - Checks for walls in a line from two pairs of coordinates
