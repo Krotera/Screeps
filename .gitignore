@@ -1,0 +1,12 @@
+dist/
+**/debug graphic.png
+
+## Node stuff
+node_modules/
+**/node module examples.js
+
+## WebStorm stuff
+.idea/
+
+## Credentials file proxy for gruntfile
+.screepsAccountInfo.json
