@@ -22,6 +22,7 @@ With [Node.js](https://nodejs.org/en/download/), run `npm install` after cloning
 - Autoplace tavern flag
 
 ## To Do
+- Repairers
 - Buildings
 - Roads based on paths
 - RCL pacing (creep body plans and building limits)
