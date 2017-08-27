@@ -1,6 +1,6 @@
 "use strict";
 const roleForager = {
-    /** @param {Creep} creep **/
+    /** @param {Creep} creep */
     run: function(creep) {
         /* GREETING **********************************************************/
         if (creep.ticksToLive === (CREEP_LIFE_TIME - 1)) {

@@ -1,8 +1,8 @@
 "use strict";
 const roleHauler = {
-    /** @param {Creep} creep **/
+    /** @param {Creep} creep */
     run: function(creep) {
-        /* STATE MODULATION **************************************************/
+
         if (creep.memory.pickingUp === undefined || (creep.memory.pickingUp === false && creep.carry.energy === 0)) {
         	creep.memory.pickingUp = true;
         	getRandomDroppedEnergy(creep);

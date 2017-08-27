@@ -1,5 +1,5 @@
 /** Returns true if there are no walls between the start coordinate and end coordinate;
- * returns false otherwise. **/
+ * returns false otherwise. */
 "use strict";
 global.isClearLine = function(roomName, startX, startY, endX, endY) {
     // Determine direction from start coord to end coord;

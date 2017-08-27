@@ -1,6 +1,6 @@
 "use strict";
 const roleMiner = {
-    /** @param {Creep} creep **/
+    /** @param {Creep} creep */
     run: function(creep) {
 		if (!creep.spawning) {
             // Pick a mining site if not assigned to one.

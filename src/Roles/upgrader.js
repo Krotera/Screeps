@@ -1,6 +1,6 @@
 "use strict";
 const roleUpgrader = {
-    /** @param {Creep} creep **/
+    /** @param {Creep} creep */
     run: function(creep) {
         /* STATE MODULATION **************************************************/
         if (creep.memory.upgrading === false && creep.carry.energy === creep.carryCapacity) {
@@ -33,8 +33,8 @@ const roleUpgrader = {
             creep.moveTo(Game.flags[creep.room.name + " Tavern"]);
             // and keep seeking material sources.
             getMatSource(creep);
-            }
         }
+    }
 };
 
 /**

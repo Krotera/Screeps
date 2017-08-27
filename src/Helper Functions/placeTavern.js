@@ -2,7 +2,7 @@
  * Places the Tavern flag around the first spawn in the specified room
  * @param {StructureSpawn} spawn
  * @param {string} flagName - "room.name_Tavern"
- **/
+ */
 "use strict";
 require("Helper Functions.isClearLine");
 global.placeTavern = function(spawn, flagName) {

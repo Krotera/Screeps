@@ -6,7 +6,8 @@ With [Node.js](https://nodejs.org/en/download/), run `npm install` after cloning
  flatten and copy all code from `src` to it, and push all its code to Screeps  in one command (thanks, [Lexx](https://github.com/Lexxicon))!
 
 ### Roles
-- &#x1F6E0; **Ctor** - Builder
+- &#x1F6E0; **Ctor** - Builds
+- &#x1F527; **Engineer** - Repairs
 - &#x1F356; **Forager** - Starter unit
 - &#x1F69B; **Hauler** - Carries stuff around
 - &#x026CF; **Miner** - [Static harvester](https://wiki.screepspl.us/index.php/Static_Harvesting); sits at a source and mines
@@ -20,9 +21,9 @@ With [Node.js](https://nodejs.org/en/download/), run `npm install` after cloning
 ## Done
 - Generate and maintain a creep population
 - Autoplace tavern flag
+- Repairer role
 
 ## To Do
-- Repairers
 - Buildings
 - Roads based on paths
 - RCL pacing (creep body plans and building limits)

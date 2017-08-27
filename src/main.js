@@ -6,6 +6,7 @@ const roleUpgrader = require("Roles.upgrader");
 const roleCtor = require("Roles.ctor");
 const roleMiner = require("Roles.miner");
 const roleHauler = require("Roles.hauler");
+const roleEngineer = require("Roles.engineer");
 // Helper functions
 // Global vars
 // Module vars (always redeclared on script rebuild by the server)
@@ -19,9 +20,10 @@ module.exports.loop = function () {
 		Memory.roles = {
 			"forager": [MOVE, CARRY, WORK],
 			"upgrader": [MOVE, CARRY, WORK],
-			"ctor": [MOVE, CARRY, WORK, WORK],
+			"ctor": [MOVE, CARRY, CARRY, CARRY, WORK],
 			"miner": [MOVE, WORK, WORK],
-			"hauler": [MOVE, MOVE, MOVE, CARRY, CARRY, CARRY]
+			"hauler": [MOVE, MOVE, MOVE, CARRY, CARRY, CARRY],
+            "engineer": [MOVE, MOVE, CARRY, CARRY, WORK]
 		}
 	}
 	// Creep role costs
@@ -40,9 +42,10 @@ module.exports.loop = function () {
 		Memory.roleCosts = {
 			"forager": BODYPART_COST["move"] + BODYPART_COST["carry"] + BODYPART_COST["work"],
 			"upgrader": BODYPART_COST["move"] + BODYPART_COST["carry"] + BODYPART_COST["work"],
-			"ctor": BODYPART_COST["move"] + BODYPART_COST["carry"] + (2 * BODYPART_COST["work"]),
+			"ctor": BODYPART_COST["move"] + (3 * BODYPART_COST["carry"]) + BODYPART_COST["work"],
 			"miner": BODYPART_COST["move"] + (2 * BODYPART_COST["work"]),
-			"hauler": (3 * BODYPART_COST["move"]) + (3 * BODYPART_COST["carry"])
+			"hauler": (3 * BODYPART_COST["move"]) + (3 * BODYPART_COST["carry"]),
+            "engineer": (2 * BODYPART_COST["move"]) + (2 * BODYPART_COST["carry"]) + BODYPART_COST["work"]
 		};
 	}
 	// List object of (rooms : (source IDs : miner ID))
@@ -74,20 +77,24 @@ module.exports.loop = function () {
     for (let i = 0; i < Object.keys(Game.creeps).length; i++) {
         let creep = Game.creeps[Object.keys(Game.creeps)[i]];
 
-        if (creep.memory.role === "forager") {
-            roleForager.run(creep);
-        }
-        if (creep.memory.role === "upgrader") {
-            roleUpgrader.run(creep);
-        }
-        if (creep.memory.role === "ctor") {
-            roleCtor.run(creep);
-        }
-        if (creep.memory.role === "miner") {
-            roleMiner.run(creep);
-        }
-        if (creep.memory.role === "hauler") {
-            roleHauler.run(creep);
+        switch (creep.memory.role) {
+            case "upgrader":
+                roleUpgrader.run(creep);
+                break;
+            case "ctor":
+                roleCtor.run(creep);
+                break;
+            case "miner":
+                roleMiner.run(creep);
+                break;
+            case "hauler":
+                roleHauler.run(creep);
+                break;
+            case "engineer":
+                roleEngineer.run(creep);
+                break;
+            default:
+                roleForager.run(creep);
         }
     }
 	

@@ -56,6 +56,7 @@ module.exports = function(grunt) {
 			]
 		  }
 		},
+		
 		// Remove all files from the dist folder.
 		clean: {
 		  "dist": ["dist"]

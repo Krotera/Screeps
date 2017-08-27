@@ -6,7 +6,7 @@ const roomHomeostasis = {
      * @param {Room} room - A room whose controller is owned by the player and that has at least one
      *                      of the player's spawns
      * @param {array} spawns - The player's spawns in the room
-     **/
+     */
     run: function(room, spawns) {
         let flagName = room.name + " Tavern";
 
@@ -86,15 +86,20 @@ const roomHomeostasis = {
                         && room.energyAvailable >= Memory.roleCosts["hauler"]) {
                         spawn.createCreep(Memory.roles["hauler"], null, {role: "hauler"});
                     }
-                    // Ctors
+                    // Ctors (2 per room)
                     else if ((Memory.roster[room.name + "_ctor"] === undefined || Memory.roster[room.name + "_ctor"].length < 2)
                         && room.energyAvailable >= Memory.roleCosts["ctor"]) {
                         spawn.createCreep(Memory.roles["ctor"], null, {role: "ctor"});
                     }
-                    // Upgrader
+                    // Upgrader (1 per room)
                     else if ((Memory.roster[room.name + "_upgrader"] === undefined || Memory.roster[room.name + "_upgrader"].length === 0)
                         && room.energyAvailable >= Memory.roleCosts["upgrader"]) {
                         spawn.createCreep(Memory.roles["upgrader"], null, {role: "upgrader"});
+                    }
+                    // Engineers (2 per room)
+                    else if ((Memory.roster[room.name + "_engineer"] === undefined || Memory.roster[room.name + "_engineer"].length < 2)
+                        && room.energyAvailable >= Memory.roleCosts["engineer"]) {
+                        spawn.createCreep(Memory.roles["engineer"], null, {role: "engineer"});
                     }
                 }
             }
@@ -117,6 +122,9 @@ const roomHomeostasis = {
             }
             if (Memory.roster[room.name + "_miner"] !== undefined) {
                 console.log(room.name + "_miner: " + Memory.roster[room.name + "_miner"].length);
+            }
+            if (Memory.roster[room.name + "_engineer"] !== undefined) {
+                console.log(room.name + "_engineer: " + Memory.roster[room.name + "_engineer"].length);
             }
         }
         */
