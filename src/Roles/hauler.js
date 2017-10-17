@@ -80,15 +80,15 @@ function getNearestDroppedEnergy(creep) {
 
 /**
  * Sets the nearest energy bearing structure with as much or more energy than the creep can carry to
- * the creep's memory.dropoffId field, prioritizing extensions and spawns over containers and storages
+ * the creep's memory.dropoffId field, prioritizing extensions, spawns, and towers over containers and storages
  * @param {Creep} creep
  */
 function getUncappedStruct(creep) {
-    // Probe for available extensions and spawns.
+    // Probe for available extensions, spawns, and towers.
     creep.memory.dropoffId = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
         filter: (structure) => {
-            return (structure.structureType === STRUCTURE_EXTENSION || structure.structureType === STRUCTURE_SPAWN)
-                && structure.energy < structure.energyCapacity;
+            return (structure.structureType === STRUCTURE_EXTENSION || structure.structureType === STRUCTURE_SPAWN ||
+                structure.structureType === STRUCTURE_TOWER) && (structure.energy < structure.energyCapacity);
         }
     });
     if (creep.memory.dropoffId !== null) {
