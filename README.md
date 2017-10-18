@@ -22,14 +22,17 @@ With [Node.js](https://nodejs.org/en/download/), run `npm install` after cloning
 - Generate and maintain a creep population
 - Autoplace tavern flag
 - Repairer role
+- Tower defense
+- RCL-paced creep population targets
 
 ## To Do
 - Buildings
 - Roads based on paths
-- RCL pacing (creep body plans and building limits)
+- RCL-paced creep body plans and building limits
 - Creep awareness of being stuck and swapping places with others if applicable (might want to use `Creep.prototype`)
 - Colonization of other rooms
-- Defense
+- Militarized creeps
+- Defense routines
 
 ## License
 [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.html)

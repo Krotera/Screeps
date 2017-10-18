@@ -9,6 +9,20 @@ const roomHomeostasis = {
      */
     run: function(room, spawns) {
         let flagName = room.name + " Tavern";
+        let popTarg;
+        // Choose population target based on RCL
+        switch (room.controller.level) {
+            case 1:
+            case 2:
+            case 3:
+                popTarg = Memory.RCLPopTargs["one_to_three"];
+                break;
+            case 4:
+                popTarg = Memory.RCLPopTargs["four_to_eight"];
+                break;
+            default:
+                popTarg = Memory.RCLPopTargs["one_to_three"];
+        }
 
         /*************************************************************************/
         /* List object of the room's source IDs and their assigned miner's ID    */
@@ -51,12 +65,12 @@ const roomHomeostasis = {
         }
 
         /*************************************************************************/
-        /* Maintain population                                                   */
+        /* Maintain population with all spawns in room                           */
         /*************************************************************************/
         for (let i = 0; i < spawns.length; i++) {
             let spawn = spawns[i];
 
-            if (!spawn.spawning && Memory.roles && Memory.roleCosts) {
+            if (!spawn.spawning && Memory.roles && Memory.roleCosts && Memory.RCLPopTargs) {
                 // Early pioneers: spawn two foragers if < 2 active creeps
                 if (Object.keys(Game.creeps).length < 2) {
                     if (room.energyAvailable >= Memory.roleCosts["forager"]) {
@@ -77,27 +91,29 @@ const roomHomeostasis = {
                 }
                 else {
                     // Miners (1 per source in room)
-                    if (Memory.roster[room.name + "_miner"].length < Object.keys(Memory.sourceIDs[room.name]).length
+                    if (Memory.roster[room.name + "_miner"].length < (popTarg["miner"] * Object.keys(Memory.sourceIDs[room.name]).length)
                         && room.energyAvailable >= Memory.roleCosts["miner"]) {
                         spawn.createCreep(Memory.roles["miner"], null, {role: "miner"});
                     }
                     // Haulers (2 per miner in room)
-                    else if (Memory.roster[room.name + "_hauler"].length < (2 * Memory.roster[room.name + "_miner"].length)
+                    else if (Memory.roster[room.name + "_hauler"].length < (popTarg["hauler"] * Memory.roster[room.name + "_miner"].length)
                         && room.energyAvailable >= Memory.roleCosts["hauler"]) {
                         spawn.createCreep(Memory.roles["hauler"], null, {role: "hauler"});
                     }
                     // Ctors (2 per room)
-                    else if ((Memory.roster[room.name + "_ctor"] === undefined || Memory.roster[room.name + "_ctor"].length < 2)
+                    else if ((Memory.roster[room.name + "_ctor"] === undefined || Memory.roster[room.name + "_ctor"].length < popTarg["ctor"])
                         && room.energyAvailable >= Memory.roleCosts["ctor"]) {
                         spawn.createCreep(Memory.roles["ctor"], null, {role: "ctor"});
                     }
                     // Upgrader (1 per room)
-                    else if ((Memory.roster[room.name + "_upgrader"] === undefined || Memory.roster[room.name + "_upgrader"].length === 0)
+                    else if ((Memory.roster[room.name + "_upgrader"] === undefined
+                            || Memory.roster[room.name + "_upgrader"].length < popTarg["upgrader"])
                         && room.energyAvailable >= Memory.roleCosts["upgrader"]) {
                         spawn.createCreep(Memory.roles["upgrader"], null, {role: "upgrader"});
                     }
                     // Engineers (2 per room)
-                    else if ((Memory.roster[room.name + "_engineer"] === undefined || Memory.roster[room.name + "_engineer"].length < 2)
+                    else if ((Memory.roster[room.name + "_engineer"] === undefined
+                            || Memory.roster[room.name + "_engineer"].length < popTarg["engineer"])
                         && room.energyAvailable >= Memory.roleCosts["engineer"]) {
                         spawn.createCreep(Memory.roles["engineer"], null, {role: "engineer"});
                     }
@@ -136,30 +152,26 @@ const roomHomeostasis = {
             placeTavern(spawns[0], flagName);
         }
 
-        // TODO: Set up RCL progression in here with switch, using the building caps constant and Room.createConstructionSite()
-
-        /*
-        Capacity for various structures at various RCLs (this is an API constant only here for reference)
-        CONTROLLER_STRUCTURES: {
-                "spawn": {0: 0, 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1, 7: 2, 8: 3},
-                "extension": {0: 0, 1: 0, 2: 5, 3: 10, 4: 20, 5: 30, 6: 40, 7: 50, 8: 60},
-                "link": {1: 0, 2: 0, 3: 0, 4: 0, 5: 2, 6: 3, 7: 4, 8: 6},
-                "road": {0: 2500, 1: 2500, 2: 2500, 3: 2500, 4: 2500, 5: 2500, 6: 2500, 7: 2500, 8: 2500},
-                "constructedWall": {1: 0, 2: 2500, 3: 2500, 4: 2500, 5: 2500, 6: 2500, 7: 2500, 8: 2500},
-                "rampart": {1: 0, 2: 2500, 3: 2500, 4: 2500, 5: 2500, 6: 2500, 7: 2500, 8: 2500},
-                "storage": {1: 0, 2: 0, 3: 0, 4: 1, 5: 1, 6: 1, 7: 1, 8: 1},
-                "tower": {1: 0, 2: 0, 3: 1, 4: 1, 5: 2, 6: 2, 7: 3, 8: 6},
-                "observer": {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 1},
-                "powerSpawn": {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 1},
-                "extractor": {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 1, 7: 1, 8: 1},
-                "terminal": {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 1, 7: 1, 8: 1},
-                "lab": {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 3, 7: 6, 8: 10},
-                "container": {0: 5, 1: 5, 2: 5, 3: 5, 4: 5, 5: 5, 6: 5, 7: 5, 8: 5},
-                "nuker": {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 1}
-            }
-        }
-        */
+        /*************************************************************************/
+        /* Tower defense                                                         */
+        /*************************************************************************/
+        towersDefendRoom(room.name);
     }
 };
+
+/**
+ * Default tower defense function
+ * @param roomName
+ */
+function towersDefendRoom(roomName) {
+    var hostiles = Game.rooms[roomName].find(FIND_HOSTILE_CREEPS);
+    if(hostiles.length > 0) {
+        var username = hostiles[0].owner.username;
+        Game.notify(`User ${username} spotted in room ${roomName}`);
+        var towers = Game.rooms[roomName].find(
+            FIND_MY_STRUCTURES, {filter: {structureType: STRUCTURE_TOWER}});
+        towers.forEach(tower => tower.attack(hostiles[0]));
+    }
+}
 
 module.exports = roomHomeostasis;
